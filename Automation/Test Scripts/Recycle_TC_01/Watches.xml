@@ -1,0 +1,5 @@
+﻿<Properties>
+  <WatchEntry0 value="JavaWindow(&quot;Oracle Retail Xstore Point&quot;).JavaList(&quot;Connection Type&quot;).Highlight" />
+  <WatchEntry1 value="IMEI1" />
+  <WatchEntry2 value="JavaWindow(&quot;Oracle Retail Xstore Point&quot;).JavaList(&quot;attached text:=&quot;&amp;IMEI1).Highlight" />
+</Properties>

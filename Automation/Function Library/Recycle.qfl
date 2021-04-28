@@ -1,0 +1,710 @@
+﻿'###################################################################################################################
+'Function Name: ProductSale
+'Function Description: Sale a product
+'Designed By Date: Goutham
+'Designed Date(MM/DD/YY): 28/12/2020
+'###################################################################################################################
+
+Function ProductSale()
+	
+Dim IMEIcount, IMEI1, IMEI2, IMEI3, PLUnumber
+
+IMEI1 = "529992967667171"
+IMEI2 = "107253922994923"
+
+emailid = "goutham.kuar@telefonica.com"
+
+PLUnumber = "6901443272518"
+
+IMEIcount = 2
+
+'Stock Adjustment
+Set objkeys = createobject("Wscript.Shell")
+
+JavaWindow("Oracle Retail Xstore Point").Restore
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Back Office").Click
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Back Office Login").Set "100"
+objkeys.SendKeys "{ENTER}"
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Back Office Login").Set "1234"
+objkeys.SendKeys "{ENTER}"
+
+wait 2
+
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("Override").exist(2) Then
+    
+    JavaWindow("Oracle Retail Xstore Point").JavaButton("Override").Click
+    wait 1
+    JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+    wait 1
+    
+    If  JavaWindow("Oracle Retail Xstore Point").JavaButton("Continue").exist(2) Then
+    
+     JavaWindow("Oracle Retail Xstore Point").JavaButton("Continue").Click
+    	
+    End If
+    
+    If JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").exist(2) Then
+    
+    JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+    	
+    End If
+     
+     If JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").exist(2) Then
+     
+     	JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+     	
+     End If
+    
+    wait 1
+   			
+ else
+ 
+ 	If JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").exist(2) Then
+     
+     	JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+     	
+    End If
+ 
+ 	If  JavaWindow("Oracle Retail Xstore Point").JavaButton("Continue").exist(2) Then
+    
+     	JavaWindow("Oracle Retail Xstore Point").JavaButton("Continue").Click
+    	
+    End If
+    
+    If JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").exist(2) Then
+    
+    	JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+    	
+    End If
+    
+End If
+
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Main Menu").Select "#2"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Main Menu").Select "#6"
+wait 1
+JavaWindow("Oracle Retail Xstore Point").JavaList("Adjustment Type").Select "Sellable"
+JavaWindow("Oracle Retail Xstore Point").JavaList("Reason").Select "BUNDLE CREATE"
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Justification").Set "Test Automation"
+wait 1
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+
+wait 1
+
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter PLU").Set PLUnumber
+
+objkeys.SendKeys "{ENTER}"
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter Quantity").set "2"
+
+wait 2
+
+objkeys.SendKeys "{ENTER}"
+
+wait 3
+
+For i = 1 To IMEIcount
+    
+    JavaWindow("Oracle Retail Xstore Point").JavaEdit("IMEI/Serial Number").Set eval("IMEI"&i)
+    wait 2
+    
+    JavaWindow("Oracle Retail Xstore Point").JavaButton("Add").Click
+    
+    If IMEIcount = i Then
+        
+        Exit for
+        
+    End If    
+    
+Next
+
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("2").Click
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("IMEI/Serial Number").
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("IMEI/Serial Number").
+
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Back").Click
+
+wait 7
+
+'Performing a Sale
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Till_2").Click
+
+wait 5
+
+If JavaWindow("Oracle Retail Xstore Point").JavaEdit("Login").exist(2) Then
+    
+    JavaWindow("Oracle Retail Xstore Point").JavaEdit("Login").Set "100"
+    objkeys.SendKeys "{ENTER}"
+    wait 2
+    JavaWindow("Oracle Retail Xstore Point").JavaEdit("Login").Set "1234"
+    wait 2
+    objkeys.SendKeys "{ENTER}"
+
+    wait 2
+
+    If JavaWindow("Oracle Retail Xstore Point").JavaButton("Override").exist(2) Then
+    
+        JavaWindow("Oracle Retail Xstore Point").JavaButton("Override").Click
+    
+    End If
+    
+    wait 2
+    JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter PLU or IMEI").Set IMEI1
+    objkeys.SendKeys "{ENTER}"
+    
+Else
+
+    wait 2
+    JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter PLU or IMEI").Set IMEI1
+    objkeys.SendKeys "{ENTER}"
+    
+End If
+
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("Count Complete").Click
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("Back Office Login").Set ""
+
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("tagname:="&IMEI1).Select "UPGRADE"
+'JavaWindow("Oracle Retail Xstore Point").JavaList("Connection Type").Select "UPGRADE"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Retrieve / Process").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Manual Sale").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Connection Reason").Select "CR4-STANDARD UPGRADE"
+wait 2
+'JavaWindow("text:=Oracle Retail.*").JavaEdit("tagname:="&IMEI1).Set "273890458"
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("developer name:=wizardConnectionReferenceField").Set "273890458"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("icon-checkbox").Set "ON"
+wait 1
+JavaWindow("Oracle Retail Xstore Point").JavaList("Tariff Product").Select "9000000290754 - 30D OUT S8 UNLTD/UNLTD £33"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Insurance Product").Select "9000000233256 - O2 INSURE THEFT/LOSS £10.00"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Mobile Number").Set "07777777777"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaList("Select Bolt Ons").Select "tuk.pos.wizard.TUKBoltSelection@5ad52b06"
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes/OK").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+wait 2
+ActionName = environment.Value ("ActionName")
+
+' For Associate Product Selection and Click on Reset Button
+If ActionName = "02B_05_associated_product" Then
+
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add Product").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("9000000256620 - POST HONOR").Select "#1"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add Product").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("9000000256620 - POST HONOR").Select "#2"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add Product").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("9000000256620 - POST HONOR").Select "#3"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add Product").Click
+wait 2
+' Adding same product twice
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add Product").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("9000000256620 - POST HONOR").Select "#4"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add Product").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add Product").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("9000000256620 - POST HONOR").Select "#5"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add Product").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Reset").Click
+    
+End If
+
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+wait 2
+
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Exist(3) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+End If
+wait 5
+
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Post Code").Set "SL14DX"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Building Number").Set "260"
+wait 5
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Search").Click
+wait 5
+JavaWindow("Oracle Retail Xstore Point").JavaList("DtvList").Select "02 UK, 260, BATH RD, BERKS, SL1 4DX"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Name").Select "Mr"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("PosTextField").Set "T"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("PosTextField_2").Set "Accepta"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Contact Number").Set "07777772341"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("icon-checkbox_2").Set "ON"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("icon-checkbox").Set "ON"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Email").Set emailid 
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Confirm Email").Set emailid
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
+'wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("tagname:=PosButtonView"").Click
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
+objkeys.SendKeys "{ENTER}"
+wait 3
+CashAmount = JavaWindow("text:=Oracle Retail.*").JavaStaticText("text:=£.*").getRoproperty("text")
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("CASH amount").Set CashAmount
+wait 2
+objkeys.SendKeys "{ENTER}"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Email Only").Click
+wait 2
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click	
+End If
+wait 2
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Exist(2) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+wait 2
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Exist(2) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+wait 2
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Exist(2) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+'END OF SALE JOURNEY
+'JavaWindow("text:=Oracle Retail.*").JavaButton("text:=OK").Click
+
+End Function
+
+Function RecyleProduct(IMEI)
+
+Set Wshell = CreateObject("wscript.shell")
+
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Till_2").Click
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("Till").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Additional Options").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Recycle").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter IMEI").set IMEI
+wait 2
+Wshell.SendKeys "{ENTER}"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleDevice").Select "Mobile"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Manufacturer").Select "HUAWEI"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Model").Select "P SMART 2019"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Check Valuation").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("e.g.Google Lock").Select "Yes"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("e.g.Phone Network").Select "Three"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("e.g.fully functional").Select "Yes, but some of the buttons/cosmetic parts are missing"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Next").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("e.g.Physical Damage").Select "Yes, the casing is cracked/damaged and/or buttons/ports are damaged"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("e.g.water damaged").Select "Yes, but everything works as it should"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("developer name:=creditBox","tagname:=icon-checkbox").Set "ON"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("developer name:=recycleMobileNumber").Set "07654376543"
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("Mobile Number").Set "07654376543"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Postcode").Set "SL14DX"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Building Number").Set "260"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Search").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("DtvList").Select "02 UK, 260, BATH RD, SLOUGH, BERKS, SL1 4DX"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Name").Select "Mr"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("PosTextField").Set "R"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("PosTextField_2").Set "Resest"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Contact Number").Set "07687654323"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Email").Set "goutham.kuar@telefonica.com"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Confirm Email").Set "goutham.kuar@telefonica.com"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("developer name:=printRcpts","tagname:=icon-checkbox").Set "ON"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("developer name:=emailContactPref","tagname:=icon-checkbox").Set "ON"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Complete Transaction").Click
+wait 5
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
+End If
+wait 3
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+wait 2
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+wait 2
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+	
+End Function
+
+Function RecycleAccessory()
+wait 3
+Set Wshell = CreateObject("wscript.shell")
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Till_2").Click
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("Till").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Additional Options").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Recycle").Click
+wait 2
+Wshell.SendKeys "{DOWN}"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Enter").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Complete Transaction").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("icon-checkbox_2").Set "ON"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
+End If
+wait 2
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+wait 2
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+wait 2
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+
+End Function
+
+Function RecycleSale(IMEI1,IMEI2)
+ 
+Set Wshell = CreateObject("Wscript.Shell")
+
+JavaWindow("Oracle Retail Xstore Point").JavaList("DtvList").Select "#2"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("DtvList").Select "#6"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Adjustment Type").Select "Sellable"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Reason").Select "BUNDLE CREATE"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Justification").Set "TESTING"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter PLU").Set "6901443275137"
+wait 2
+Wshell.SendKeys"{ENTER}"
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter Quantity").Set "6901443272518"
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter Quantity").PressKey "1"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter Quantity").Set "1"
+wait 2
+Wshell.SendKeys"{ENTER}"
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("IMEI/Serial Number").PressKey "V",micCtrl
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("IMEI/Serial Number").Set IMEI1
+'wait 2
+'Wshell.SendKeys"{ENTER}"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Add").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Till").Click
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter PLU or IMEI").PressKey "V",micCtrl
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter PLU or IMEI").Set "6901443275137"
+wait 2
+Wshell.SendKeys"{ENTER}"
+wait 2
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+End If
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+
+If JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter IMEI").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter IMEI").Set IMEI1
+	wait 2
+	Wshell.SendKeys"{ENTER}"
+End If
+
+If JavaWindow("Oracle Retail Xstore Point").JavaEdit("IMEI/Serial Number").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaEdit("IMEI/Serial Number").Set IMEI1
+End If
+
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaList("attached text:="&IMEI1).Set "New"  
+
+'JavaWindow("Oracle Retail Xstore Point").JavaList("tagname:="&IMEI1).Select "New"
+
+JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=wizardConnectionComboBox").Select "NEW"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Retrieve / Process").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Manual Sale").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("index:=1").Select "CR3-CONTINGENCY"
+wait 2
+JavaWindow("text:=Oracle Retail.*").JavaEdit("developer name:=wizardConnectionReferenceField").Set "273890458"
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaList("tagname:="&IMEI1).Select "CR3-CONTINGENCY"
+'JavaWindow("Oracle Retail Xstore Point").JavaList("text:=CR3-CONTINGENCY").Select "CR3-CONTINGENCY"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("index:=1").Set "5038262042976"
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("SIM Product").Set "5038262042976"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("index:=2").Select "9000000268906 - 30D OUT S2 DD UNLTD   2GB £22"
+'JavaWindow("Oracle Retail Xstore Point").JavaList("Tariff Product").Select "9000000268906 - 30D OUT S2 DD UNLTD   2GB £22"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("index:=3").Select "9000000233225 - O2 INSURE A/DAMAGE £7.50"
+'JavaWindow("Oracle Retail Xstore Point").JavaList("Insurance Product").Select "9000000233225 - O2 INSURE A/DAMAGE £7.50"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("index:=6").Set "07777777777"
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("developer name:=wizardMobileNumberField").Set "07777777777"
+
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("Mobile Number").Set "07777777777"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("index:=7").Set "0012345678901"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("developer name:=wizardRecycleCreditCheckBox","index:=4").Set "ON"
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("IMEI Number").PressKey "V",micCtrl
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("index:=8").Set IMEI2
+'JavaWindow("Oracle Retail Xstore Point").JavaEdit("developer name:=wizardImeiNumberFieldValue").Set IMEI2
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Get Recycle Credit Value").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleDevice").Select "Mobile"
+
+If JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleManufacturer").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleManufacturer").Select "HUAWEI"
+		wait 2
+	Wshell.SendKeys "{TAB}"
+End If
+
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Model").Select "P SMART 2019"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+'JavaWindow("Oracle Retail Xstore Point").JavaList("o2-").Select "Yes"
+JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleListAnswer1").Select "Yes"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleListAnswer2").Select "Vodafone"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleListAnswer3").Select "Yes, but some of the buttons/cosmetic parts are missing"
+'JavaWindow("Oracle Retail Xstore Point").JavaList("e.g.fully functional").Select "Yes, but some of the buttons/cosmetic parts are missing"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Next").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleListAnswer1").Select "Yes, the casing is cracked/damaged and/or buttons/ports are damaged"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleListAnswer2").Select "Yes, but everything works as it should"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("developer name:=postcode").Set "SL14DX"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("developer name:=buildingNumber").Set "260"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Search").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaList("Name").Select "Mr"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("PosTextField").Set "T"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("tagname:="&IMEI1).Set "Accepta"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Contact Number").Set "0777777777"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("tagname:=Mobile Number").Set "07665432154"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("Email").Set "TEST@TELEFONICA.COM"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("developer name:=secondemailAddress","tagname:=Confirm Email").Set "TEST@TELEFONICA.COM"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("developer name:=printRcpts","tagname:=icon-checkbox").Set "ON"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaCheckBox("developer name:=emailContactPref","tagname:=icon-checkbox").Set "ON"
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+Wshell.SendKeys "{F2}"
+wait 2
+
+For i = 1 To 5
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes/OK").Click
+wait 2
+Wshell.SendKeys "{DOWN}"
+Next
+
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+
+For i = 0 To 5
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes/OK").Click
+wait 2
+Wshell.SendKeys "{DOWN}"
+Next
+
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+wait 12
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
+End If
+wait 5
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Click
+ElseIf JavaWindow("Oracle Retail Xstore Point").JavaButton("Back").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("Back").Click
+End If
+wait 5
+
+If JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Exist(2) Then
+	JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Click
+End If
+
+wait 3
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
+'wait 3
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
+Wshell.SendKeys "{ENTER}"
+wait 2
+CashAmount = JavaWindow("text:=Oracle Retail.*").JavaStaticText("text:=£.*").getRoproperty("text")
+wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaEdit("CASH amount").Set CashAmount
+wait 2
+Wshell.SendKeys "{ENTER}"
+wait 2
+If JavaWindow("Oracle Retail Xstore Point").JavaEdit("PosTextPane").exist(1) Then
+	Wshell.SendKeys "{ENTER}"
+	wait 2
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+	Else 
+	wait 2
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+
+wait 2
+
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+
+wait 2
+
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+
+wait 2
+
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+
+
+End Function
+
+
+

@@ -1,0 +1,5 @@
+﻿<Properties>
+  <WatchEntry0 value="CurrentTestCaseName" />
+  <WatchEntry1 value="TestScriptName" />
+  <WatchEntry2 value="JavaWindow(&quot;Oracle Retail Xstore Point&quot;).javaCheckBox(&quot;icon-checkbox&quot;).highlight" />
+</Properties>

@@ -1,0 +1,6 @@
+﻿<Properties>
+  <WatchEntry0 value="TestScriptName" />
+  <WatchEntry1 value="CurrentTestCaseName" />
+  <WatchEntry2 value="iRowCount" />
+  <WatchEntry3 value="strScriptLoc" />
+</Properties>

@@ -1,0 +1,1 @@
+﻿var __testDataSource={items:[{dataFilePath:'Default.xlsx',dataFileFormat:'excel',dataFileFolder:'C:\\Repairs\\Automation\\Test Scripts\\Repairs_Reg_06_8_RepairTable\\Report',namePairs:[]}]};
