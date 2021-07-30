@@ -48,25 +48,22 @@ Repositoriescollection.Add DirPath&"\Object Repository\Recycle2.tsr"
 Repositoriescollection.Add DirPath&"\Object Repository\Recycle3.tsr"
 LoadFunctionLibrary DirPath&"\Function Library\Common Functions.qfl"
 LoadFunctionLibrary DirPath&"\Function Library\Recycle.qfl"
+
+'LoadFunctionLibrary DirPath&"\Function Library\Recycle.qfl"
 'LoadFunctionLibrary DirPath&"\Function Library\Recycle2.qfl"
 'LoadFunctionLibrary DirPath&"\Function Library\Recycle3.qfl"
+'MsgBox DirPath
 
-
-wait (2)
-
-'Call RecyleProduct()
 If JavaWindow("Oracle Retail Xstore Point").JavaList("Main Menu").Exist(2) then
 	Reporter.ReportEvent micDone,"Login into Xstore","User has Already logged into Xstore"
 Else
-	call LoginXstore(LoginType,strUsername,strPassword)
-	'Call Logout(strUsername,strPassword)
-	wait 1
+	Call LoginXstore(LoginType,strUsername,strPassword)
+	Wait 1
 End If
 
 Call RecycleSale(IMEI1,IMEI2)
-'Call Recycle_TC_08()
-call Logout(LoginType)
-'Call RecycleAccessory()
+Wait 2
+Call Logout(LoginType)
 
 On Error GoTo 0
 

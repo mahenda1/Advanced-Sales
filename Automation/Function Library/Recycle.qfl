@@ -280,7 +280,7 @@ JavaWindow("Oracle Retail Xstore Point").JavaEdit("Confirm Email").Set emailid
 wait 2
 'JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm_2").Click
 'wait 2
-JavaWindow("Oracle Retail Xstore Point").JavaButton("tagname:=PosButtonView"").Click
+JavaWindow("Oracle Retail Xstore Point").JavaButton("tagname:=PosButtonView").Click
 wait 2
 'JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
 objkeys.SendKeys "{ENTER}"
@@ -297,6 +297,8 @@ If JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Exist(2) Then
 	JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click	
 End If
 wait 2
+objkeys.SendKeys "{ENTER}"
+Wait 2
 If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Exist(2) Then
 	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
 End If
@@ -309,15 +311,14 @@ If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton
 	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
 End If
 'END OF SALE JOURNEY
-'JavaWindow("text:=Oracle Retail.*").JavaButton("text:=OK").Click
-
+JavaWindow("text:=Oracle Retail.*").JavaButton("text:=OK").Click
 End Function
 
 Function RecyleProduct(IMEI)
 
 Set Wshell = CreateObject("wscript.shell")
 
-JavaWindow("Oracle Retail Xstore Point").JavaButton("Till_2").Click
+'JavaWindow("Oracle Retail Xstore Point").JavaButton("Till_2").Click
 'JavaWindow("Oracle Retail Xstore Point").JavaButton("Till").Click
 wait 2
 JavaWindow("Oracle Retail Xstore Point").JavaButton("Additional Options").Click
@@ -325,11 +326,12 @@ wait 2
 JavaWindow("Oracle Retail Xstore Point").JavaButton("Recycle").Click
 wait 2
 JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
-wait 2
+wait 4
 JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter IMEI").set IMEI
-wait 2
-Wshell.SendKeys "{ENTER}"
-wait 2
+wait 4
+JavaWindow("Oracle Retail Xstore Point").JavaButton("tagname:=Enter").Click
+'Wshell.SendKeys "{ENTER}"
+wait 4
 JavaWindow("Oracle Retail Xstore Point").JavaList("developer name:=recycleDevice").Select "Mobile"
 wait 2
 JavaWindow("Oracle Retail Xstore Point").JavaList("Manufacturer").Select "HUAWEI"
@@ -454,6 +456,7 @@ End If
 
 End Function
 
+
 Function RecycleSale(IMEI1,IMEI2)
  
 Set Wshell = CreateObject("Wscript.Shell")
@@ -491,6 +494,8 @@ JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
 wait 2
 JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
 wait 2
+JavaWindow("Oracle Retail Xstore Point").JavaButton("Back").Click
+Wait 2
 JavaWindow("Oracle Retail Xstore Point").JavaButton("Till").Click
 wait 2
 'JavaWindow("Oracle Retail Xstore Point").JavaEdit("Enter PLU or IMEI").PressKey "V",micCtrl
@@ -627,7 +632,11 @@ Next
 wait 2
 JavaWindow("Oracle Retail Xstore Point").JavaButton("Confirm").Click
 wait 2
-Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+'Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Exist(2) Then
+	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+End If
+
 wait 2
 JavaWindow("Oracle Retail Xstore Point").JavaButton("OK").Click
 wait 2
@@ -660,9 +669,9 @@ ElseIf JavaWindow("Oracle Retail Xstore Point").JavaButton("Back").Exist(2) Then
 End If
 wait 5
 
-If JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Exist(2) Then
-	JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Click
-End If
+'If JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Exist(2) Then
+'	JavaWindow("Oracle Retail Xstore Point").JavaButton("Total").Click
+'End If
 
 wait 3
 'JavaWindow("Oracle Retail Xstore Point").JavaButton("Yes").Click
@@ -678,33 +687,30 @@ Wshell.SendKeys "{ENTER}"
 wait 2
 If JavaWindow("Oracle Retail Xstore Point").JavaEdit("PosTextPane").exist(1) Then
 	Wshell.SendKeys "{ENTER}"
-	wait 2
-	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
-	Else 
-	wait 2
-	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+	'wait 2
+'	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+'	Else 
+'	wait 2
+'	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
 End If
-
-wait 2
-
-If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
-	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
-End If
-
-wait 2
-
-If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
-	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
-End If
-
-wait 2
-
-If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
-	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
-End If
+'
+'wait 2
+'
+'If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+'	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+'End If
+'
+'wait 2
+'
+'If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+'	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+'End If
+'
+'wait 2
+'
+'If Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").exist(1) Then
+'	Window("Oracle Retail Xstore Point").Dialog("Save Print Output As").WinButton("Cancel").Click
+'End If
 
 
 End Function
-
-
-
